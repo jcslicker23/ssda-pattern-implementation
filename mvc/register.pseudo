@@ -1,41 +1,78 @@
-// get registration information from the user
-$username = $_POST['username'];
-$pw1 = $_POST['password1'];
-$pw2 = $_POST['password2'];
+class UserController {
+  private $user;
 
-// validate 
-if ($pw1 != $pw2 || !valid($pw1) || !valid($username))
-    return redirectBack(400);
+  public function __construct($username, $password) {
+    $this->user = new User($username, $password);
+  }
 
-// hash password
-$pwHash = hash($pw1);
+  public function register() {
+    $username = $this->user->getUsername();
+    $pw1 = $this->user->getPassword();
+    $pw2 = $this->user->getPassword();
 
-$title = "<title>Welcome $username</title>";
+    if ($pw1 != $pw2 || !$this->validatePassword($pw1) || !$this->validateUsername($username)) {
+      return $this->redirectBack(400);
+    }
 
-// initialize database
-$db = getDatabase('myHost', 'mypassword', 'myDb');
-$table = "users";
+    $pwHash = $this->hashPassword($pw1);
 
-// create user
-$success = $db->query("INSERT INTO $table (username, password) 
-    VALUES ($username, $pwHash);");
+    $db = $this->getDatabase();
+    $table = "users";
 
-if(!$success)
-    return redirectBack(500);
+    $success = $db->query("INSERT INTO $table (username, password)
+      VALUES ($username, $pwHash);");
 
-// set up opening tag 
-if(getCurrentSeason() == 'summer');
-    $h1Style = '<h1 style="color: RED">';
-else
-    $h1Style = '<h1 style="color: BLUE">';
+    if (!$success) {
+      return $this->redirectBack(500);
+    }
 
-echo "<html>
-            <head>
-                $title
-            </head>
-            <body>
-                $h1Style
-                    Welcome $username
-                </h1>
-            </body>
-        </html>";
+    return $this->renderView();
+  }
+
+  private function validatePassword($password) {
+    // Add validation logic here
+    return true;
+  }
+
+  private function validateUsername($username) {
+    // Add validation logic here
+    return true;
+  }
+
+  private function hashPassword($password) {
+    // Add password hashing logic here
+    return $password;
+  }
+
+  private function getDatabase() {
+    // Add database connection logic here
+    return new Database('myHost', 'myPassword', 'myDb');
+  }
+
+  private function redirectBack($code) {
+    // Add redirect logic here
+    return $code;
+  }
+
+  private function renderView() {
+    $title = "<title>Welcome " . $this->user->getUsername() . "</title>";
+    $h1Style = ($this->getCurrentSeason() == 'summer') ? '<h1 style="color: RED">' : '<h1 style="color: BLUE">';
+    $view = "<html>
+      <head>
+        $title
+      </head>
+      <body>
+        $h1Style
+        Welcome " . $this->user->getUsername() . "
+        </h1>
+      </body>
+    </html>";
+
+    return $view;
+  }
+
+  private function getCurrentSeason() {
+    // Add logic to determine current season
+    return 'summer';
+  }
+}
