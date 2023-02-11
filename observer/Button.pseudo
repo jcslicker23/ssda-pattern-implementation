@@ -1,6 +1,11 @@
-public class Button {
+import java.util.ArrayList;
+import java.util.List;
 
-	public void press() {
-		
-	}
+public class Button {
+private List<Light> lights = new ArrayList<Light>();
+
+public void press() {
+for (Light light : lights) {
+light.turnOn();
+}
 }
