@@ -1,7 +1,7 @@
-public SomeClass{
+class SomeClass{
+    private Logger logger = SingletonLogger.getInstance().getLogger();
 
-	public main(){
-		Logger l = new Logger();
-		l.info("hello world");
-	}
+    public void main() {
+        logger.info("hello world");
+    }
 }
