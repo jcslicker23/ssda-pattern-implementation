@@ -7,5 +7,6 @@ public class Light{
 
 	// light turns on with specified color for 1 second	
 	public void turnOn(){
+	System.out.println(color + " light turned on.");
 	}
 }	
