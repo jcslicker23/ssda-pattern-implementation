@@ -1,11 +1,21 @@
-public class Logger {
-	private String log;
-	// Constructor
-	public Logger(){
-	}
+import java.util.logging.Logger;
 
-	// Log something
-	public info(String information){
-		this.log.append(information);
-	}
+public class SingletonLogger {
+    private static SingletonLogger instance;
+    private Logger logger;
+
+    private SingletonLogger() {
+        logger = Logger.getLogger("SingletonLogger");
+    }
+
+    public static SingletonLogger getInstance() {
+        if (instance == null) {
+            instance = new SingletonLogger();
+        }
+        return instance;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
 }
