@@ -1,4 +1,5 @@
-import java.util.logging.Logger;
+/** Change:  use this singleton logger class in any other class by calling SingletonLogger.getInstance().getLogger(). 
+ensure that only one instance of the logger is created and all classes use the same instance. **/
 
 public class SingletonLogger {
     private static SingletonLogger instance;
