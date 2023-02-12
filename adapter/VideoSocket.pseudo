@@ -5,9 +5,9 @@
 
 public class VideoSocket {
 
-	public main(){
+	public static void main(){
 		// plug MUST be of type VideoPlug
-		VideoPlug plug = new HDMIPlug();
+		VideoPlug plug = new HDMIAdapter(new HDMIPlug());
 
 		// call plug.digitalDisplay() 
 		plug.digitalDisplay(1024, 768);
