@@ -1,3 +1,17 @@
+/** Change: The class UserController implements the logic for registering a user. 
+It receives the username and password from an instance of the User class and uses these values to perform various checks and database operations.
+The register method first checks if the two passwords provided match and are valid using the validatePassword and validateUsername methods. 
+If either of these checks fail, the method returns the result of redirectBack with a status code of 400.
+Next, the method hashes the password using the hashPassword method and inserts the username and hashed password into a database table using a database connection obtained from the getDatabase method. 
+If this operation fails, the method returns the result of redirectBack with a status code of 500.
+The method returns the result of renderView, which generates a HTML view welcoming the newly registered user. 
+The renderView method uses the getCurrentSeason method to determine the current season and sets the color of the welcome message accordingly. 
+This class is a user controller that appears to handle user registration. It takes a username and password and creates a new User object with those values. 
+The register method then performs the following steps:
+Validate that the username and password meet certain requirements. Hash the password for security.
+Connect to a database and insert the username and password hash into a users table.
+If the database insert is successful, render a welcome view with the username. **/
+
 class UserController {
   private $user;
 
