@@ -1,4 +1,12 @@
-public interface VideoPlug {
-
-	public display(int width, int height);
+public class HDMIAdapter implements VideoPlug {
+  private HDMIPlug hdmiPlug;
+  
+  public HDMIAdapter(HDMIPlug hdmiPlug) {
+    this.hdmiPlug = hdmiPlug;
+  }
+  
+  @Override
+  public void display(int width, int height) {
+    hdmiPlug.digitalDisplay();
+  }
 }
