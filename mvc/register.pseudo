@@ -76,3 +76,4 @@ class UserController {
     return 'summer';
   }
 }
+
