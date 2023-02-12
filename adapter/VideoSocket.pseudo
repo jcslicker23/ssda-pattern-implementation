@@ -1,3 +1,5 @@
+/** Change: Replace the VGAPlug object with an instance of the HDMIAdapter. **/
+
 //  Modify this class so it uses the HDMIPlug's 
 // digitalDisplay() implementation. Note that you 
 // still must use a VidePlug (i.e., don't just replace
