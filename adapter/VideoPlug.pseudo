@@ -1,3 +1,6 @@
+/** Change: Create an adapter class that implements the VideoPlug interface and uses an HDMIPlug object. 
+The adapter class will delegate calls to the display() method to the digitalDisplay() method of the HDMIPlug object. **/
+
 public class HDMIAdapter implements VideoPlug {
   private HDMIPlug hdmiPlug;
   
