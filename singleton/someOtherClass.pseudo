@@ -1,7 +1,6 @@
-public SomeOtherClass{
-
-	public main(){
-		Logger l = new Logger();
-		l.info("hello from some other class!");
-	}
+public class SomeOtherClass {
+    public static void main(String[] args) {
+        Logger logger = Logger.getInstance();
+        logger.info("hello from some other class!");
+    }
 }
