@@ -1,6 +1,13 @@
-public class Button {
+class Button<T extends ButtonObserver> {
+    private List<T> observers = new ArrayList<>();
 
-	public void press() {
-		
-	}
-}
+    public void press() {
+        // Notify all observers when the button is pressed
+        for (T observer : observers) {
+            observer.onPressed();
+        }
+    }
+
+    public void addObserver(T observer) {
+        observers.add(observer);
+    }
