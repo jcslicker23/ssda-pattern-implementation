@@ -1,11 +1,16 @@
-public class Light{
-	private String color;
+public class Light implements ButtonObserver {
+    private String color;
 
-	public Light(String color){
-		this.color = color;
-	}
+    public Light(String color) {
+        this.color = color;
+    }
 
-	// light turns on with specified color for 1 second	
-	public void turnOn(){
-	}
-}	
+    public void turnOn() {
+        System.out.println(color + " light is on for 1 second.");
+    }
+
+    // Implementation of the onPressed method from ButtonObserver
+    @Override
+    public void onPressed() {
+        turnOn();
+    }
