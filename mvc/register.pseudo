@@ -1,41 +1,54 @@
-// get registration information from the user
-$username = $_POST['username'];
-$pw1 = $_POST['password1'];
-$pw2 = $_POST['password2'];
+<?php
+// Controller
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get registration information from the user
+    $username = $_POST['username'];
+    $pw1 = $_POST['password1'];
+    $pw2 = $_POST['password2'];
 
-// validate 
-if ($pw1 != $pw2 || !valid($pw1) || !valid($username))
-    return redirectBack(400);
+    // Validate input
+    if ($pw1 != $pw2 || !valid($pw1) || !valid($username)) {
+        return redirectBack(400);
+    }
 
-// hash password
-$pwHash = hash($pw1);
+    // Hash password
+    $pwHash = hash($pw1);
 
-$title = "<title>Welcome $username</title>";
+    // Initialize database connection (You should replace 'myHost', 'mypassword', 'myDb' with actual values)
+    $db = getDatabase('myHost', 'mypassword', 'myDb');
+    $table = "users";
 
-// initialize database
-$db = getDatabase('myHost', 'mypassword', 'myDb');
-$table = "users";
+    // Create user
+    $success = $db->query("INSERT INTO $table (username, password) 
+        VALUES ('$username', '$pwHash');");
 
-// create user
-$success = $db->query("INSERT INTO $table (username, password) 
-    VALUES ($username, $pwHash);");
+    if (!$success) {
+        return redirectBack(500);
+    }
 
-if(!$success)
-    return redirectBack(500);
+    // Redirect to a success page or display a success message
+    header("Location: success.php");
+    exit;
+}
 
-// set up opening tag 
-if(getCurrentSeason() == 'summer');
-    $h1Style = '<h1 style="color: RED">';
-else
-    $h1Style = '<h1 style="color: BLUE">';
+// View
+if (getCurrentSeason() == 'summer') {
+    $h1Style = 'style="color: RED"';
+} else {
+    $h1Style = 'style="color: BLUE"';
+}
 
-echo "<html>
-            <head>
-                $title
-            </head>
-            <body>
-                $h1Style
-                    Welcome $username
-                </h1>
-            </body>
-        </html>";
+$title = "<title>Welcome</title>";
+
+// HTML View
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <?php echo $title; ?>
+</head>
+<body>
+    <h1 <?php echo $h1Style; ?>>Welcome</h1>
+</body>
+</html>
+
